@@ -230,3 +230,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+const tabs = document.querySelectorAll('[data-target]');
+const tabContents = document.querySelectorAll('[data-content]');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = document.querySelector(tab.dataset.target);
+
+    tabContents.forEach(tc => {
+      tc.classList.remove('qualification__active');
+    });
+    target.classList.add('qualification__active');
+
+    tabs.forEach(t => {
+      t.classList.remove('qualification__active');
+    });
+    tab.classList.add('qualification__active');
+  });
+});
+

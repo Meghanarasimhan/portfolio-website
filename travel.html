@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Travel Moments</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/travel.css" />
+  <style>
+    .travel-title {
+      font-size: 2.5rem;
+      text-align: center;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .travel-title span {
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .typewriter {
+      font-size: 1rem;
+      text-align: center;
+      display: block;
+      color: #666;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .travel-grid__container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .travel-grid__tile {
+      display: block;
+      text-align: center;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      animation: slideUpFade 0.6s ease-in-out both;
+    }
+
+    .travel-grid__tile:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(255, 75, 43, 0.2);
+    }
+
+    @keyframes slideUpFade {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .travel-grid__tile img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .travel-grid__name {
+      position: relative;
+      padding: 0.8rem;
+      font-weight: 600;
+      color: var(--title-color);
+      background-color: #f9f9f9;
+    }
+
+    .travel-grid__name::after {
+      content: "";
+      position: absolute;
+      bottom: 0.3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 2px;
+      background: #ff4b2b;
+      transition: width 0.3s ease;
+    }
+
+    .travel-grid__tile:hover .travel-grid__name::after {
+      width: 90%;
+    }
+
+    .travel__location {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      margin-top: 4rem;
+    }
+
+    .travel__location.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .travel__location-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .travel__gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+
+    .travel__gallery img {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .travel__gallery img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const tiles = document.querySelectorAll('.travel-grid__tile');
+      const locations = document.querySelectorAll('.travel__location');
+
+      tiles.forEach(tile => {
+        tile.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('data-target');
+          locations.forEach(loc => loc.classList.remove('active'));
+          document.getElementById(targetId).classList.add('active');
+          window.scrollTo({
+            top: document.getElementById(targetId).offsetTop - 60,
+            behavior: 'smooth'
+          });
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+<main>
+  <section class="travel-grid section">
+    <h2 class="travel-title">🌍 Where I've <span>Been</span></h2>
+    <span class="typewriter">World Through My lens ✈️</span>
+
+    <div class="travel-grid__container container">
+      <a href="#" data-target="thailand" class="travel-grid__tile">
+        <img src="assets/img/thailand.jpg" alt="Thailand" />
+        <div class="travel-grid__name"></div>
+      </a>
+      <a href="#" data-target="nyc" class="travel-grid__tile">
+        <img src="assets/img/thumb-nyc.jpg" alt="New York" />
+        <div class="travel-grid__name">New York</div>
+      </a>
+      <a href="#" data-target="sf" class="travel-grid__tile">
+        <img src="assets/img/thumb-sf.jpg" alt="San Francisco" />
+        <div class="travel-grid__name">San Francisco</div>
+      </a>
+      <a href="#" data-target="chicago" class="travel-grid__tile">
+        <img src="assets/img/thumb-chicago.jpg" alt="Chicago" />
+        <div class="travel-grid__name">Chicago</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Albums hidden by default -->
+  <section class="travel__location" id="thailand">
+    <h3 class="travel__location-title">Phuket, Thailand</h3>
+    <div class="travel__gallery">
+      <img src="assets/img/travel-thailand1.jpg" alt="Thailand Beach" />
+      <img src="assets/img/travel-thailand2.jpg" alt="Island Hopping" />
+      <img src="assets/img/travel-thailand4.jpg" alt="Temple Visit" />
+    </div>
+  </section>
+
+  <section class="travel__location" id="nyc">
+    <h3 class="travel__location-title">New York, USA</h3>
+    <div class="travel__gallery">
+      <img src="assets/img/travel-nyc1.jpg" alt="Times Square" />
+      <img src="assets/img/travel-nyc2.jpg" alt="Brooklyn Bridge" />
+    </div>
+  </section>
+
+  <section class="travel__location" id="sf">
+    <h3 class="travel__location-title">San Francisco, CA – Fall 2023</h3>
+    <div class="travel__gallery">
+      <img src="assets/img/travel-california1.jpg" alt="Golden Gate" />
+      <img src="assets/img/travel-california2.jpg" alt="Lombard Street" />
+    </div>
+  </section>
+
+  <section class="travel__location" id="chicago">
+    <h3 class="travel__location-title">Chicago, USA – My current city</h3>
+    <div class="travel__gallery">
+      <img src="assets/img/travel-chicago1.jpg" alt="Millennium Park" />
+      <img src="assets/img/travel-chicago2.jpg" alt="Chicago Skyline" />
+    </div>
+  </section>
+</main>
+</body>
+</html>
